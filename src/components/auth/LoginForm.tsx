@@ -33,7 +33,7 @@ export default function LoginForm() {
       if (result?.error) {
         setError(result.error);
       } else if (result?.ok) {
-        setError(result.message || "Login successful!");
+        setError( "Login successful!");
         router.push("/dashboard");
       } else {
         setError("An unexpected error occurred");

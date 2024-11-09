@@ -1,6 +1,24 @@
 import { fetchFromAPI } from "@/lib/api";
-import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth from "next-auth"; 
+import CredentialsProvider from "next-auth/providers/credentials";
+
+
+// type  LoginResponse = {
+//   status: boolean;
+//   data: {
+//     user: {
+//       id: string;
+//       firstName: string;
+//       lastName: string;
+//       email: string;
+//       photo?: string;
+//     };
+//   };
+//   token: string;
+//   message: string;
+// }
+
+
 
 const handler = NextAuth({
   providers: [
@@ -11,7 +29,7 @@ const handler = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        // console.log("Authorize function called with credentials:", credentials);
+
         
         try {
 
@@ -21,7 +39,7 @@ const handler = NextAuth({
           });
 
           // console.log("Login API response status:", data.status);
-          // console.log("Login API response data:", data);
+          // console.log("Login API response data:", data.message);
 
 
           if (data.status) {
@@ -37,9 +55,9 @@ const handler = NextAuth({
           console.log("Login failed:", data.message);
           throw new Error(data.message || "Login failed");
           }
-        } catch (error: any ) {
-          console.error("Error in authorize function:", error);
-          throw new Error(error.message || "An error occurred during login try again ");
+        } catch (error) {
+          // console.error("Error in authorize function:", error);
+          throw new Error("An error occurred during login try again ");
         }
       },
     }),

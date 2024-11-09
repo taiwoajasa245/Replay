@@ -1,22 +1,35 @@
-const API_BASE_URL = process.env.API_BASE_URL;
+const API_BASE_URL = process.env.API_BASE_URL
 
-export async function fetchFromAPI(endpoint: string, options: RequestInit = {}) {
-  const url = `${API_BASE_URL}${endpoint}`;
-  const isFormData = options.body instanceof FormData;
+if (!API_BASE_URL) {
+  throw new Error('API_BASE_URL is not defined in environment variables')
+}
+
+type APIResponse<T> = {
+  status: boolean
+  message: string
+  data?: T
+}
+
+export async function fetchFromAPI<T>(endpoint: string, options: RequestInit = {}): Promise<APIResponse<T>> {
+  const url = `${API_BASE_URL}${endpoint}`
 
   const response = await fetch(url, {
     ...options,
     headers: {
       ...options.headers,
-      ...(isFormData ? {} : { 'Content-Type': 'application/json' }), // Only set Content-Type for JSON
+      'Content-Type': 'application/json',
     },
-  });
+  })
 
-  const data = await response.json();
+  const data: APIResponse<T> = await response.json()
 
-  if (!data.status) { // assuming status is a boolean
-    throw new Error(data.message || 'An error occurred');
+  if (!response.ok) {
+    throw new Error(data.message || `HTTP error! status: ${response.status}`)
   }
 
-  return data;
+  if (!data.status) {
+    throw new Error(data.message || 'An error occurred')
+  }
+
+  return data
 }

@@ -4,7 +4,6 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { fetchFromAPI } from "@/lib/api";
 
 export default function SignupForm() {
   const [firstName, setFirstName] = useState("");
@@ -27,7 +26,6 @@ export default function SignupForm() {
       return;
     }
 
- 
     // Prepare JSON data
     const payload = {
       firstName,
@@ -37,27 +35,18 @@ export default function SignupForm() {
     };
 
     try {
-      // console.log("Attempting to sign up...");
-      const res = await fetchFromAPI("/api/v1/replay/auth/signup", {
+      const res = await fetch("/api/signup", {
         method: "POST",
-        body:  JSON.stringify(payload),
-        redirect: "follow",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-      
-      console.log("Signup response status:", res.status);
-
-      const data = await res.json();
-      console.log("Signup response data:", data);
 
       if (res.ok) {
-        console.log("Signup successful, attempting to sign in...");
         const result = await signIn("credentials", {
           redirect: false,
           email,
           password,
         });
-
-        console.log("Sign in result:", result);
 
         if (result?.error) {
           setError(result.error);
@@ -68,18 +57,21 @@ export default function SignupForm() {
           setError("An unexpected error occurred");
         }
       } else {
-        setError(data.message || "An error occurred during signup");
+        setError(
+          "An error occurred during signup, check your internet and try again "
+        );
       }
     } catch (err) {
-      console.error("Signup error:", err);
-      setError("An error occurred during signup");
+      setError(
+        "An error occurred during signup, please check your internet and try again "
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div >
+    <div>
       <form className=" space-y-6" onSubmit={handleSubmit}>
         <div className=" space-y-4 mx-1">
           <div>
@@ -146,7 +138,14 @@ export default function SignupForm() {
         </div>
 
         {error && (
-          <div className="text-red-500 text-sm mt-2" role="alert">
+          <div
+            className={`text-sm mt-2 ${
+              error.includes("Signup successful")
+                ? "text-green-500"
+                : "text-red-500"
+            }`}
+            role="alert"
+          >
             {error}
           </div>
         )}
