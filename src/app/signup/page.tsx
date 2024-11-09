@@ -23,9 +23,7 @@ export default function Signup() {
               Welcome to Replay, Let&apos;s create your account!{" "}
             </p>
           </div>
-
           <hr className="my-5 mr-4" />
-
           <div>
             <SignupForm />
           </div>
