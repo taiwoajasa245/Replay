@@ -33,14 +33,19 @@ export default function LoginForm() {
       if (result?.error) {
         setError(result.error);
       } else if (result?.ok) {
-        setError( "Login successful!");
+        setError("Login successful!");
         router.push("/dashboard");
       } else {
         setError("An unexpected error occurred");
       }
     } catch (err) {
-      console.error("Login error:", err);
-      setError("An error occurred during login");
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+
+      setError(
+        errorMessage ||
+          "An error occurred during login, please check your internet and try again."
+      );
     } finally {
       setIsLoading(false);
     }

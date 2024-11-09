@@ -61,9 +61,13 @@ export default function SignupForm() {
           "An error occurred during signup, check your internet and try again "
         );
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+
       setError(
-        err.message ||"An error occurred during signup, please check your internet and try again "
+        errorMessage ||
+          "An error occurred during signup, please check your internet and try again."
       );
     } finally {
       setIsLoading(false);
