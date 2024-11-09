@@ -7,7 +7,7 @@ import { useEffect } from "react";
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  console.log({session , status });
+  // console.log({session , status });
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -42,7 +42,7 @@ export default function Dashboard() {
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                 <p>You are logged in as: {session?.user?.name}</p>
                 <button
-                  onClick={() => signOut({ callbackUrl: "/" })}
+                  onClick={() => signOut({ callbackUrl: "/login" })}
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Logout

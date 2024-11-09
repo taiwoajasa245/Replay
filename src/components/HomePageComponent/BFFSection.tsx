@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import InfoCard from "./InfoCard";
 
 export default function BFFSection() {

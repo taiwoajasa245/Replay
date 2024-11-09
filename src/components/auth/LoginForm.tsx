@@ -24,14 +24,14 @@ export default function LoginForm() {
     }
 
     try {
-      console.log("Attempting to sign in...");
+      // console.log("Attempting to sign in...");
       const result = await signIn("credentials", {
         redirect: false,
         email,
         password,
       });
 
-      console.log("Sign in result:", result);
+      // console.log("Sign in result:", result);
 
       if (result?.error) {
         setError(result.error);
@@ -109,7 +109,7 @@ export default function LoginForm() {
       </form>
       <div className="w-full mt-2 ">
         <div className=" flex justify-center tracking-wide">
-          <p> Don't have an account?</p>
+          <p> Don&apos;t have an account?</p>
           <Link href="/signup" className="text-[#305041] cursor-pointer ml-1 ">
             Create an account
           </Link>

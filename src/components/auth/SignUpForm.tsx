@@ -6,7 +6,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 
 export default function SignupForm() {
-  const [name, setName] = useState("");
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -152,11 +152,11 @@ export default function SignupForm() {
         )}
 
         <div>
-          <div className="w-full flex justify-center cursor-pointer ">
+          <div className="w-full flex justify-center ">
             <button
               type="submit"
               disabled={isLoading}
-              className={`px-14 py-2 rounded-md text-[15px] text-white font-bold  tracking-widest ${
+              className={`px-14 py-2 rounded-md text-[15px] text-white font-bold  tracking-widest cursor-pointer ${
                 isLoading ? "bg-gray-400" : "bg-[#305041]"
               } `}
             >

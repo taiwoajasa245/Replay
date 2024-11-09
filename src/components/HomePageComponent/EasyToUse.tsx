@@ -6,7 +6,7 @@ export default function EasyToUse() {
     <section className="w-full">
       <div className="mx-5">
         <div>
-          <p className="text-center  font-extrabold text-[20px] tracking-[2px] md:text-[35px]"> It's pretty easy to use </p>
+          <p className="text-center  font-extrabold text-[20px] tracking-[2px] md:text-[35px]"> It&apos;s pretty easy to use </p>
         </div>
 
         <div className="mt-8 ml-6 ">

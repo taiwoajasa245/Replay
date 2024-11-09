@@ -18,7 +18,7 @@ export default function Signup() {
         <div>
           <p className="font-medium text-sm">
             {" "}
-            Welcome to Replay, Let's create your account!{" "}
+            Welcome to Replay, Let&apos;s create your account!{" "}
           </p>
         </div>
 

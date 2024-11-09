@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import GetStartedButton from "../common/GetStartedButton";
+// import GetStartedButton from "../common/GetStartedButton";
 
 const AnimatedMenu = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -9,7 +9,7 @@ const handler = NextAuth({
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         console.log("Authorize function called with credentials:", credentials);
         
         try {
@@ -34,7 +34,7 @@ const handler = NextAuth({
               token: data.token,
             }; 
         } else {
-            console.log("Login failed:", data.message);
+            // console.log("Login failed:", data.message);
             return null;
           }
         } catch (error) {
