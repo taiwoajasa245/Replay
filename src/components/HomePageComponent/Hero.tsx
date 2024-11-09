@@ -15,7 +15,7 @@ export default function Hero() {
 
         {/* Hero title */}
         <div className="my-5">
-          <p className="text-center font-medium text-[8px] font-poppins md:text-[20px]">
+          <p className="text-center font-medium text-[10px] font-poppins md:text-[20px]">
             Your Photos, Your Privacy. Our Commitment. A Secure and
             User- <br /> Friendly Photo Sharing Solution
           </p>
@@ -23,8 +23,8 @@ export default function Hero() {
 
         {/* Hero desktop button */}
         <div className="hidden md:flex justify-center">
-          <Link href="/signup" className="flex items-center">
-            <div className="flex items-center bg-[#305041] rounded-full  ">
+          <Link href="/signup" className="flex items-center ">
+            <div className="flex items-center bg-[#305041] rounded-full   hover:bg-[#216746] transition-all">
               <span className="px-7 py-3 text-white text-[25px] text-nowrap font-semibold ">
                 Get Started
               </span>

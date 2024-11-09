@@ -143,7 +143,7 @@ export default function SignupForm() {
 
         {error && (
           <div
-            className={`text-sm mt-2 ${
+            className={`text-base mt-2 font-bold ${
               error.includes("Signup successful")
                 ? "text-green-500"
                 : "text-red-500"

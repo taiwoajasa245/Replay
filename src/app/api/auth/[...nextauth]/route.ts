@@ -3,20 +3,20 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 
-// type  LoginResponse = {
-//   status: boolean;
-//   data: {
-//     user: {
-//       id: string;
-//       firstName: string;
-//       lastName: string;
-//       email: string;
-//       photo?: string;
-//     };
-//   };
-//   token: string;
-//   message: string;
-// }
+type  LoginResponse = {
+  status: boolean;
+  data: {
+    user: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      photo?: string;
+    };
+  };
+  token: string;
+  message: string;
+}
 
 
 
@@ -36,10 +36,12 @@ const handler = NextAuth({
           const data = await fetchFromAPI("/api/v1/replay/auth/login", {
             method: "POST",
             body: JSON.stringify(credentials),
-          });
+          }) as LoginResponse 
 
           // console.log("Login API response status:", data.status);
           // console.log("Login API response data:", data.message);
+
+     
 
 
           if (data.status) {
