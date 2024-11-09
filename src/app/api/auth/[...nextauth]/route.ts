@@ -55,9 +55,9 @@ const handler = NextAuth({
           console.log("Login failed:", data.message);
           throw new Error(data.message || "Login failed");
           }
-        } catch (error) {
+        } catch (error: any) {
           // console.error("Error in authorize function:", error);
-          throw new Error("An error occurred during login try again ");
+          throw new Error( error.message ||"An error occurred during login try again ");
         }
       },
     }),
