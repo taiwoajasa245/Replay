@@ -4,9 +4,9 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { fetchFromAPI } from "@/lib/api";
 
 export default function SignupForm() {
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,24 +27,23 @@ export default function SignupForm() {
       return;
     }
 
-    //  form data
-    const formData = new FormData();
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("email", email);
-    formData.append("password", password);
+ 
+    // Prepare JSON data
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
 
     try {
-      console.log("Attempting to sign up...");
-      const res = await fetch(
-        "https://replay-ki5q.onrender.com/api/v1/replay/auth/signup",
-        {
-          method: "POST",
-          body: formData,
-          redirect: "follow",
-        }
-      );
-
+      // console.log("Attempting to sign up...");
+      const res = await fetchFromAPI("/api/v1/replay/auth/signup", {
+        method: "POST",
+        body:  JSON.stringify(payload),
+        redirect: "follow",
+      });
+      
       console.log("Signup response status:", res.status);
 
       const data = await res.json();
@@ -63,6 +62,7 @@ export default function SignupForm() {
         if (result?.error) {
           setError(result.error);
         } else if (result?.ok) {
+          setError("Signup successful");
           router.push("/dashboard");
         } else {
           setError("An unexpected error occurred");
@@ -79,7 +79,7 @@ export default function SignupForm() {
   };
 
   return (
-    <div>
+    <div >
       <form className=" space-y-6" onSubmit={handleSubmit}>
         <div className=" space-y-4 mx-1">
           <div>
@@ -156,7 +156,7 @@ export default function SignupForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className={`px-14 py-2 rounded-md text-[15px] text-white font-bold  tracking-widest cursor-pointer ${
+              className={`px-14 py-2 rounded-md  md:px-32 text-[15px] text-white font-bold  tracking-widest cursor-pointer ${
                 isLoading ? "bg-gray-400" : "bg-[#305041]"
               } `}
             >
@@ -165,7 +165,7 @@ export default function SignupForm() {
           </div>
         </div>
       </form>
-      <div className="w-full mt-2 ">
+      <div className="w-full my-2 ">
         <div className=" flex justify-center tracking-widest ">
           <p> Already have an account?</p>
           <Link href="/login" className="text-[#305041] cursor-pointer ml-1 ">

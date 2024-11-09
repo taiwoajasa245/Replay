@@ -1,3 +1,4 @@
+import { fetchFromAPI } from "@/lib/api";
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
@@ -10,20 +11,18 @@ const handler = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.log("Authorize function called with credentials:", credentials);
+        // console.log("Authorize function called with credentials:", credentials);
         
         try {
-          const response = await fetch('https://replay-ki5q.onrender.com/api/v1/replay/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+
+          const data = await fetchFromAPI("/api/v1/replay/auth/login", {
+            method: "POST",
             body: JSON.stringify(credentials),
           });
 
-          console.log("Login API response status:", response.status);
+          // console.log("Login API response status:", data.status);
+          // console.log("Login API response data:", data);
 
-          const data = await response.json();
-        
-          console.log("Login API response data:", data);
 
           if (data.status) {
             return {
@@ -32,14 +31,15 @@ const handler = NextAuth({
               email: data.data.user.email,
               image: data.data.user.photo,
               token: data.token,
+              message: "Login successful!",
             }; 
         } else {
-            // console.log("Login failed:", data.message);
-            return null;
+          console.log("Login failed:", data.message);
+          throw new Error(data.message || "Login failed");
           }
-        } catch (error) {
+        } catch (error: any ) {
           console.error("Error in authorize function:", error);
-          return null;
+          throw new Error(error.message || "An error occurred during login try again ");
         }
       },
     }),

@@ -24,24 +24,22 @@ export default function LoginForm() {
     }
 
     try {
-      // console.log("Attempting to sign in...");
       const result = await signIn("credentials", {
         redirect: false,
         email,
         password,
       });
 
-      // console.log("Sign in result:", result);
-
       if (result?.error) {
         setError(result.error);
       } else if (result?.ok) {
+        setError(result.message || "Login successful!");
         router.push("/dashboard");
       } else {
         setError("An unexpected error occurred");
       }
     } catch (err) {
-    console.error("Login error:", err);
+      console.error("Login error:", err);
       setError("An error occurred during login");
     } finally {
       setIsLoading(false);
@@ -88,17 +86,24 @@ export default function LoginForm() {
         </div>
 
         {error && (
-          <div className="text-red-500 text-sm mt-2" role="alert">
+          <div
+            className={`text-sm mt-2 ${
+              error.includes("Login successful")
+                ? "text-green-500"
+                : "text-red-500"
+            }`}
+            role="alert"
+          >
             {error}
           </div>
         )}
 
         <div>
-          <div className="w-full flex justify-center cursor-pointer ">
+          <div className="w-full flex justify-center  ">
             <button
               type="submit"
               disabled={isLoading}
-              className={`px-14 py-2 rounded-md text-[15px] font-bold tracking-widest text-white ${
+              className={`px-14 py-2 md:px-32 rounded-md text-[15px]  font-bold tracking-widest text-white cursor-pointer ${
                 isLoading ? "bg-gray-400" : "bg-[#305041]"
               }`}
             >
