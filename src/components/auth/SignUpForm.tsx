@@ -27,7 +27,7 @@ export default function SignupForm() {
       return;
     }
 
-    // Prepare form data
+    //  form data
     const formData = new FormData();
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);

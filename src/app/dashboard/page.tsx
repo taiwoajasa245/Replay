@@ -40,7 +40,7 @@ export default function Dashboard() {
             </div>
             <div className="divide-y divide-gray-200">
               <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                <p>You are logged in as: {session?.user?.email}</p>
+                <p>You are logged in as: {session?.user?.name}</p>
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
