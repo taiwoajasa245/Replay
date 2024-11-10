@@ -24,6 +24,7 @@ export default function LoginForm() {
     }
 
     try {
+
       const result = await signIn("credentials", {
         redirect: false,
         email,
@@ -31,7 +32,7 @@ export default function LoginForm() {
       });
 
       if (result?.error) {
-        setError(result.error);
+        setError(result.error || "Invalid credentials. Please try again.");
       } else if (result?.ok) {
         setError("Login successful!");
         router.push("/dashboard");
@@ -39,13 +40,8 @@ export default function LoginForm() {
         setError("An unexpected error occurred");
       }
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "An unexpected error occurred";
-
-      setError(
-        errorMessage ||
-          "An error occurred during login, please check your internet and try again."
-      );
+      const errorMessage = err instanceof Error ? err.message : "A network error occurred. Please check your connection.";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

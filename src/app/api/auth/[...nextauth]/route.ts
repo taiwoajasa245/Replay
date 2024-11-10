@@ -54,8 +54,8 @@ const handler = NextAuth({
               message: "Login successful!",
             }; 
         } else {
-          console.log("Login failed:", data.message);
-          throw new Error(data.message || "Login failed");
+
+          throw new Error(data.message || "Incorrect email or password.");
           }
         } catch (error: unknown) {
           // console.error("Error in authorize function:", error);

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Poppins, Darker_Grotesque } from '@next/font/google';
-// import { Poppins, Darker_Grotesque } from "next/font/google";
+// import { Poppins, Darker_Grotesque } from '@next/font/google';
+import { Poppins, Darker_Grotesque } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -16,9 +16,7 @@ const darkerGrotesque = Darker_Grotesque({
   variable: "--font-darker-grotesque",
 });
 
-// nav font => Darker Grotesque
-// hero text font => TAN - NIMBUS
-// hero font => Poppins
+
 
 export const metadata: Metadata = {
   title: "Replay | Homepage ",
