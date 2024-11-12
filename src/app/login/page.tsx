@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Login() {
   return (
-    <div className="w-full flex h-screen justify-evenly">
+    <div className="w-full flex h-screen justify-evenly animate-fade animate-normal">
       <div className="w-full">
         <div className="mx-5 md:h-full md:flex md:flex-col md:justify-center md:mx-52">
           <div>

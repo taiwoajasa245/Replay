@@ -44,18 +44,21 @@ const AnimatedMenu = () => {
       >
         <nav className="flex flex-col h-full justify-center items-center space-y-8 text-white">
           <Link
+            onClick={toggleMenu}
             href="/"
             className="text-xl hover:text-gray-600 transition-colors "
           >
             About
           </Link>
           <Link
+            onClick={toggleMenu}
             href="/"
             className="text-xl hover:text-gray-600 transition-colors"
           >
             Social
           </Link>
           <Link
+            onClick={toggleMenu}
             href="/about"
             className="text-xl hover:text-gray-600 transition-colors"
           >
@@ -79,7 +82,7 @@ const AnimatedMenu = () => {
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-transparent h-full  z-40"
+          className="absolute inset-0 bg-transparent z-40"
           onClick={toggleMenu}
         ></div>
       )}

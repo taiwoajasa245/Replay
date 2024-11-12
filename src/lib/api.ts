@@ -21,7 +21,7 @@ export async function fetchFromAPI<T>(endpoint: string, options: RequestInit = {
     },
   })
 
-  const data: APIResponse<T> = await response.json()
+  const data: APIResponse<T> = await response.json();
 
   if (!response.ok) {
     throw new Error(data.message || `HTTP error! status: ${response.status}`)

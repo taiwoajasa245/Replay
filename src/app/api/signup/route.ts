@@ -23,8 +23,10 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Signup error:', error);
 
-    // Check if the error contains a message and send it in response
-    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred during signup';
+    const errorMessage = error instanceof Error 
+      ? "Oops! Something went wrong during signup. Please check your connection and try again later." 
+      : "An unexpected error occurred. Please try again later.";
+
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }
