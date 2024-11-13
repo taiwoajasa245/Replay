@@ -1,5 +1,6 @@
 import { fetchFromAPI } from "@/lib/api";
-import NextAuth, { NextAuthOptions, User } from "next-auth";
+import { NextAuthOptions, User } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 interface CustomUser extends User {
@@ -62,14 +63,14 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: {token: any, user: CustomUser}) {
       if (user) {
         token.id = (user as CustomUser).id;
         token.token = (user as CustomUser).token;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: {session: any, token: any}) {
       session.user.id = token.id as string;
       session.user.token = token.token as string;
       return session;

@@ -1,17 +1,18 @@
 import { getServerSession } from "next-auth/next";
+import type { Session  } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const API_URL = process.env.API_BASE_URL;
 
-export async function fetchGalleries() {
+export async function fetchGalleries(): Promise<Session | null > {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions) as Session;
 
-    if (!session || !session.user?.token) {
+    if (!session || !session?.user?.token) {
       throw new Error("Session or token not found. Please log in again.");
     }
 
-    console.log(session);
+    
 
     const response = await fetch(`${API_URL}/api/v1/replay/gallery`, {
       headers: {
@@ -42,6 +43,7 @@ export async function fetchGalleries() {
       console.error("Network or unknown error: ", error);
     }
 
-    return console.log("An error occurred while fetching galleries. Please try again.");
+    return null;
+
   }
 }
