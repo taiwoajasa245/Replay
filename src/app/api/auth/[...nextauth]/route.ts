@@ -1,6 +1,6 @@
 import { fetchFromAPI } from "@/lib/api";
 import { Session } from "next-auth";
-// @ts-ignore
+// @ts-expect-error
 import { NextAuthOptions } from "next-auth";
 import {  User } from "next-auth";
 import NextAuth from "next-auth";
@@ -87,6 +87,6 @@ export const authOptions: NextAuthOptions = {
   debug: process.env.NODE_ENV === "development",
 };
 
-// @ts-ignore
+// @ts-expect-error
 const handler = NextAuth(authOptions) as any;
 export { handler as GET, handler as POST };
