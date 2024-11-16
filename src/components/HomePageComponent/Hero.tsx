@@ -49,8 +49,8 @@ export default function Hero() {
             href="/signup"
             className="flex items-center bg-[#305041] rounded-full w-[155px] h-[40px]"
           >
-            <span className="px-4 py-2 text-white text-[15px] font-semibold ">Get Started</span>
-            <div className="bg-white rounded-full p-1">
+            <span className="px-3 py-2 text-white text-[14px] text-nowrap font-medium ">Get Started</span>
+            <div className="bg-white rounded-full p-1 mr-2">
               <Image
                 aria-hidden
                 src="/Arrow-right.svg"

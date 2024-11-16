@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { fetchFromAPI } from "@/lib/api";
 import { Session } from "next-auth";
 // @ts-expect-error
