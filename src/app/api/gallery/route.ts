@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const body = await request.json();
 
 
-    const result = await addGallery(body);
+    const result = await addGallery(body) as { status?: number; data?: unknown };
 
     if (!result || !result.status) {
       return NextResponse.json(

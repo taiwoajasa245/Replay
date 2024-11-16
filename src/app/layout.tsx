@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 // for testing purpose 
-
 // import { Poppins, Darker_Grotesque } from '@next/font/google';
 
 import { Poppins, Darker_Grotesque } from "next/font/google";

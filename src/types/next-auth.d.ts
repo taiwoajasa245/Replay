@@ -1,6 +1,5 @@
 
-
-declare module "next-auth" {
+export declare module "next-auth" {
   interface Session {
     data: unknown;
     user: {
