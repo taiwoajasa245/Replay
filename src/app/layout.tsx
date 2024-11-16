@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
+
+// for testing purpose 
+
 // import { Poppins, Darker_Grotesque } from '@next/font/google';
+
 import { Poppins, Darker_Grotesque } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -15,8 +21,6 @@ const darkerGrotesque = Darker_Grotesque({
   weight: ["400", "500", "600", "700"],
   variable: "--font-darker-grotesque",
 });
-
-
 
 export const metadata: Metadata = {
   title: "Replay | Homepage ",
@@ -36,7 +40,10 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${darkerGrotesque.variable} text-black antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <ToastContainer position="top-center" autoClose={2000} pauseOnHover />
+        </Providers>
       </body>
     </html>
   );

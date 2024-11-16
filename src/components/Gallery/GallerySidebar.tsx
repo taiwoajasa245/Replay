@@ -4,7 +4,7 @@ import CreateGalleryButton from "./CreateGallaryButton";
 import { useSidebar } from "@/contexts/SidebarContext";
 
 export default function GallerySidebar() {
-  const {showSidebar} = useSidebar(); 
+  const {showSidebar, toggleSidebar} = useSidebar(); 
 
 
   return (
@@ -37,7 +37,7 @@ export default function GallerySidebar() {
             </Link>
           </nav>
           <div>
-            <CreateGalleryButton text="Create Gallery" />
+            <CreateGalleryButton text="Create Gallery" onClose={toggleSidebar} />
           </div>
         </div>
       </aside>

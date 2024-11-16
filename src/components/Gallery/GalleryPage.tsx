@@ -1,6 +1,7 @@
 'use client'
 
 import { useSession } from "next-auth/react"
+import { useRouter } from 'next/navigation';
 import GalleryCard from "./GalleryCard";
 
 type Gallery = {
@@ -15,12 +16,15 @@ type GalleriesProps = {
 
 export default function Galleries({ galleries }: GalleriesProps) {
   const { data: session, status } = useSession();
+  const router = useRouter(); 
 
   if (status === "loading") {
     return (
       <div className="flex justify-center items-center h-screen">Loading</div>
     );
   }
+
+  
 
   if (!session) {
     return <div>Access Denied</div>;
@@ -29,8 +33,10 @@ export default function Galleries({ galleries }: GalleriesProps) {
   return (
     <div className="flex flex-col h-full">
       {galleries.length > 0 ? (
-        galleries.map((gallery) => (
-          <p key={gallery.galleryId}> <GalleryCard title={gallery.title} file={gallery.fileCount} /> </p>
+        galleries.slice().reverse().map((gallery) => (
+          <div key={gallery.galleryId} onClick={() => router.push(`/dashboard/gallery/${gallery.galleryId}`)}>
+             <GalleryCard title={gallery.title} file={gallery.fileCount}  /> 
+          </div>
         ))
       ) : (
         <p className="flex flex-col items-center justify-center h-full min-h-screen bg-white">You have not created any Gallery</p>

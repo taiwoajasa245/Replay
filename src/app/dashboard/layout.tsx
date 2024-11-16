@@ -40,7 +40,7 @@ function DashboardContent({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Page content */}
-        <main  className="flex-grow overflow-y-auto scrollbar-hide min-h-screen bg-white">
+        <main  className="flex-grow  scrollbar-hide min-h-screen bg-white">
           {children}
         </main>
       </div>

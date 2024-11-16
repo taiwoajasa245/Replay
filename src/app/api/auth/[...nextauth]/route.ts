@@ -1,8 +1,9 @@
 import { fetchFromAPI } from "@/lib/api";
+import { Session } from "next-auth";
 import { NextAuthOptions, User } from "next-auth";
 import NextAuth from "next-auth";
+import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
-
 interface CustomUser extends User {
   id: string;
   token: string;
@@ -22,6 +23,9 @@ type LoginResponse = {
   token: string;
   message: string;
 };
+
+
+
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -63,14 +67,15 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async jwt({ token, user }: {token: any, user: CustomUser}) {
+    async jwt({ token, user }: {token: JWT, user: CustomUser}) {
       if (user) {
-        token.id = (user as CustomUser).id;
+        token.id = (user as CustomUser).id ;
         token.token = (user as CustomUser).token;
       }
       return token;
     },
-    async session({ session, token }: {session: any, token: any}) {
+    async session({ session, token }: {session: Session, token: JWT}) {
+      
       session.user.id = token.id as string;
       session.user.token = token.token as string;
       return session;
@@ -80,6 +85,6 @@ export const authOptions: NextAuthOptions = {
   debug: process.env.NODE_ENV === "development",
 };
 
-// Use authOptions in the NextAuth handler
+
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

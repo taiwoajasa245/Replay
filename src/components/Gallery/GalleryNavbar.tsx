@@ -32,6 +32,8 @@ export default function GalleryNavbar({ name, image }: GalleryNavbarProps) {
 
   return (
     <header className="p-4 pt-10 border-b border-b-[#6E9981] flex items-center w-full ">
+
+
       {/* Sidebar toggle button for mobile */}
       <button
         aria-label={showSidebar ? "Close menu" : "Open menu"}
@@ -76,10 +78,12 @@ export default function GalleryNavbar({ name, image }: GalleryNavbarProps) {
           className="flex items-center gap-2 cursor-pointer relative"
         >
           <div className="flex items-center gap-2">
-            <img
-              className="rounded-full border-2 border-[#6E9981] shadow-sm w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+            <Image
+              className="rounded-full border-2 border-[#6E9981] shadow-sm w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 animate-jump-in"
               src={image}
               alt="user image"
+              width={100}
+              height={100}
             />
             <p className="hidden sm:block font-semibold truncate max-w-[100px] md:max-w-none">
               {name}
@@ -98,7 +102,7 @@ export default function GalleryNavbar({ name, image }: GalleryNavbarProps) {
 
         {/* Dropdown menu */}
         {showDropdown && (
-          <div className="absolute right-0 top-16 z-10 mt-2 w-40 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 md:right-10">
+          <div className="absolute right-0 top-20 z-10 mt-2 w-40 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 md:right-10">
             <div className="py-1">
               <Link href="/account-settings" passHref>
                 <p className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
