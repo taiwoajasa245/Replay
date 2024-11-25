@@ -3,7 +3,8 @@ import Review from "@/components/common/Reviews";
 import Link from "next/link";
 import React from "react";
 
-export default function Login() {
+export default async function Login() {
+ 
   return (
     <div className="w-full flex h-screen justify-evenly animate-fade animate-normal">
       <div className="w-full">

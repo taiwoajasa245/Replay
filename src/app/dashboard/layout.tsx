@@ -7,6 +7,7 @@ import GallerySidebar from "@/components/Gallery/GallerySidebar";
 import GalleryNavbar from "@/components/Gallery/GalleryNavbar";
 import { SidebarProvider, useSidebar } from "@/contexts/SidebarContext";
 
+
 // Define a type for the layout's children
 type DashboardLayoutProps = {
   children: ReactNode;
@@ -15,6 +16,7 @@ type DashboardLayoutProps = {
 function DashboardContent({ children }: DashboardLayoutProps) {
   const { data: session, status } = useSession();
   const { showSidebar } = useSidebar();
+
   
 
   if (status === "loading") {
@@ -22,14 +24,16 @@ function DashboardContent({ children }: DashboardLayoutProps) {
   }
 
   if (!session) {
-    return <div>Access Denied</div>;
+    return <div className="bg-black text-4xl text-white flex justify-center items-center h-screen w-full">
+      Access Denied
+    </div>;
   }
 
   return (
     <div className="w-full h-screen flex flex-col animate-fade animate-duration-[1000ms] animate-alternate">
       <GalleryNavbar
         name={session?.user?.name as string}
-        image={session?.user?.image as string}
+        image={session?.user?.image as string} 
       />
 
       {/* Main content area */}

@@ -31,7 +31,7 @@ export default function LoginForm() {
       });
 
       if (result?.error) {
-        setError(result.error || "Invalid credentials. Please try again.");
+        setError("Invalid credentials. Please try again.");
       } else if (result?.ok) {
         setError("Login successful!");
         router.push("/dashboard");

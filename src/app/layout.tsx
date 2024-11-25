@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-// for testing purpose 
-// import { Poppins, Darker_Grotesque } from '@next/font/google';
+// for testing purpose
+import { Poppins, Darker_Grotesque } from '@next/font/google';
 
-import { Poppins, Darker_Grotesque } from "next/font/google";
+// import { Poppins, Darker_Grotesque } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { ToastContainer } from "react-toastify";

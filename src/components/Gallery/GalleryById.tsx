@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import DeleteConfirmationModal from "./DeleteComfirmationModal";
+import Link from "next/link";
+import ImageModal from "./ImageModal";
 
 type FileData = { link: string; fileId: number };
 
@@ -16,7 +18,6 @@ type GalleryData = {
   galleryId: number;
   files: FileData[];
 };
-
 
 export default function GalleryIdComponent({
   id,
@@ -29,19 +30,26 @@ export default function GalleryIdComponent({
     useState<GalleryData>(initialGalleryData);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [fileToDelete, setFileToDelete] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<FileData | null>(null);
+
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(galleryData.galleryLink);
       toast.success("Link Copied!");
     } catch (error) {
-      console.error(error); 
+      console.error(error);
       toast.error("Failed to copy link.");
     }
   };
 
+  const handleImageClick = (file: FileData) => {
+    setSelectedImage(file);
+    setIsImageModalOpen(true);
+  };
 
   const openDeleteModal = (fileId: number) => {
     setFileToDelete(fileId);
@@ -53,13 +61,14 @@ export default function GalleryIdComponent({
   };
 
   const handleUploadClick = () => {
-    setIsModalOpen(true);
+    setIsUploadModalOpen(true);
   };
 
   const handleDelete = async (fileId: number) => {
     try {
-      const response = await fetch(`/api/image/${fileId}`, {
+      const response = await fetch(`/api/image/delete/${fileId}`, {
         method: "DELETE",
+        cache: "no-cache",
       });
 
       if (response.ok) {
@@ -83,7 +92,7 @@ export default function GalleryIdComponent({
     <div className="w-full p-2 px-4 md:p-9">
       {/* back buttton  */}
       <div className="my-4 md:my-0">
-        <BackButton />
+        <BackButton href="/dashboard" />
       </div>
       <div className="w-full flex flex-col items-center mt-5 md:mt-0">
         <p className=" text-center font-medium text-3xl md:text-5xl">
@@ -96,7 +105,10 @@ export default function GalleryIdComponent({
 
           {/* manage button */}
 
-          <div className="flex items-center justify-center gap-2 border rounded-3xl px-3 py-1 cursor-pointer hover:bg-slate-200">
+          <Link
+            href={`/dashboard/gallery/update/${galleryData.galleryId}`}
+            className="flex items-center justify-center gap-2 border rounded-3xl px-3 py-1 cursor-pointer hover:bg-slate-200"
+          >
             <Image
               src="/manage-icon.svg"
               alt="Manage button "
@@ -105,7 +117,7 @@ export default function GalleryIdComponent({
               className="w-2.5 md:w-4"
             />
             <p className="text-sm">Manage</p>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="flex justify-center items-center my-5">
@@ -132,7 +144,7 @@ export default function GalleryIdComponent({
         </button>
       </div>
 
-      <div className="grid justify-end items-center  sticky  top-[26rem] right-5 z-10">
+      <div className="grid justify-end items-center  sticky  top-[29rem] md:top-[27.5rem] right-5 z-10">
         <button
           onClick={handleUploadClick}
           className=" px-6  md:px-12 py-2 rounded-[15px] text-[15px] md:text-[20px] text-white bg-[#305041] hover:bg-[#426d57]"
@@ -141,10 +153,10 @@ export default function GalleryIdComponent({
         </button>
       </div>
 
-      {isModalOpen && (
+      {isUploadModalOpen && (
         <UploadModal
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isUploadModalOpen}
+          setIsModalOpen={setIsUploadModalOpen}
           id={id}
         />
       )}
@@ -164,8 +176,11 @@ export default function GalleryIdComponent({
                   onLoad={() =>
                     index === galleryData.files.length - 1 && setLoading(false)
                   }
-                  className="rounded-md"
+                  className="rounded-md cursor-pointer"
+                  onClick={() => handleImageClick(file)}
                 />
+
+                {/* delete image icon
                 <button
                   onClick={() => openDeleteModal(file.fileId)}
                   className="absolute cursor-pointer bottom-2 right-2 md:right-5 bg-white  p-2  rounded-full  shadow-lg hover:bg-slate-100"
@@ -177,7 +192,7 @@ export default function GalleryIdComponent({
                     height={100}
                     className="w-3"
                   />
-                </button>
+                </button> */}
               </div>
             ))
         ) : (
@@ -190,11 +205,23 @@ export default function GalleryIdComponent({
         )}
       </div>
 
+      {/* Image Modal */}
+      {isImageModalOpen && selectedImage && (
+        <ImageModal
+          isOpen={isImageModalOpen}
+          selectedImage={selectedImage}
+          onClose={() => setIsImageModalOpen(false)}
+          onDelete={openDeleteModal}
+        />
+      )}
+
       {/* Delete Confirmation Modal */}
       <DeleteConfirmationModal
+        value="image"
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={confirmDelete}
+        fallBackUrl={`/dashboard/gallery/${id}`}
       />
     </div>
   );

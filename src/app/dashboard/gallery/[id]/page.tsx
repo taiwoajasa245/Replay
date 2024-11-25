@@ -1,6 +1,7 @@
 import GalleryIdComponent from "@/components/Gallery/GalleryById";
 import { fetchGalleryData } from "@/utils/GalleryAction";
-import React from "react";
+import React, { Suspense } from "react";
+import Loading from "@/components/Gallery/Loading";
 
 type GalleryData = {
   title: string;
@@ -10,12 +11,13 @@ type GalleryData = {
   files: { link: string; fileId: number }[];
 };
 
-export default async function GalleryIdPage({ params }: { params: { id: string } }) {
-  let getGalleries: unknown; // Use `unknown` instead of `any`
+// Server component to fetch gallery data
+async function GalleryDataFetcher({ id }: { id: string }) {
+  let getGalleries: unknown;
   let errorMessage = "";
 
   try {
-    getGalleries = await fetchGalleryData(params.id);
+    getGalleries = await fetchGalleryData(id);
     if (!getGalleries || !(getGalleries as { data: GalleryData }).data) {
       throw new Error("Failed to load galleries");
     }
@@ -25,16 +27,26 @@ export default async function GalleryIdPage({ params }: { params: { id: string }
       "Sorry, we couldn't load the galleries at this time. check your internet and try again later.";
   }
 
-  return (
-    <div>
-      {errorMessage ? (
+  if (errorMessage) {
+    return (
+      <div className="flex justify-center items-center h-screen">
         <p className="text-red-500 text-center">{errorMessage}</p>
-      ) : (
-        <GalleryIdComponent
-          id={params.id}
-          galleryData={(getGalleries as { data: GalleryData }).data}
-        />
-      )}
-    </div>
+      </div>
+    );
+  }
+
+  return (
+    <GalleryIdComponent
+      id={id}
+      galleryData={(getGalleries as { data: GalleryData }).data}
+    />
+  );
+}
+
+export default function GalleryIdPage({ params }: { params: { id: string } }) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <GalleryDataFetcher id={params.id} />
+    </Suspense>
   );
 }

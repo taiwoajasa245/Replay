@@ -8,14 +8,14 @@ export default function Hero() {
       <div className="m-5">
         {/* Hero header */}
         <div>
-          <p className="font-TAN_NIMBUS text-[19px] text-center md:text-[45px] md:animate-fade-up ">
+          <p className="font-TAN_NIMBUS text-[24px] text-center md:text-[45px] animate-fade-up ">
             Capture and Share Your <br /> Special Moments, Privately
           </p>
         </div>
 
         {/* Hero title */}
         <div className="my-5">
-          <p className="text-center font-medium text-[10px] font-poppins md:text-[20px] md:animate-fade-down md:animate-delay-500 md:animate-normal">
+          <p className="text-center font-medium text-[12px] font-poppins md:text-[20px] animate-fade-down animate-delay-500 md:animate-normal">
             Your Photos, Your Privacy. Our Commitment. A Secure and
             User- <br /> Friendly Photo Sharing Solution
           </p>
@@ -36,7 +36,7 @@ export default function Hero() {
                   alt="Arrow right"
                   width={100}
                   height={100}
-                  className="w-[80px] h-[45px] hover:animate-jump-in " 
+                  className="w-[80px] h-[45px]" 
                 /> 
               </div>
             </div>

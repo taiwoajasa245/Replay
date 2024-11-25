@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,10 @@ interface UploadModalProps {
 
 // TODO clean up code
 
-export default function UploadModal({ setIsModalOpen, id }: UploadModalProps) {
+export default function UploadModal({
+  setIsModalOpen,
+  id,
+}: UploadModalProps) {
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -104,10 +107,12 @@ export default function UploadModal({ setIsModalOpen, id }: UploadModalProps) {
       }
 
       const data = await response.json();
+
       handleToast(data.message || "Upload Successfull");
-      router.replace(`/dashboard/gallery/${id}`);
-      setFiles([]); // Clear the selected files
-      setIsModalOpen(false); // Close the modal after successful upload
+
+      setFiles([]);
+
+      setIsModalOpen(false);
     } catch (error) {
       setLoading(false);
       console.error("Error during file upload:", error);
@@ -120,9 +125,8 @@ export default function UploadModal({ setIsModalOpen, id }: UploadModalProps) {
   return (
     <div>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div className="bg-white p-8 rounded-lg w-full max-w-md">
-          {/* upload image */}
-          <button onClick={handleCloseModal} className=" mb-5 ">
+        <div className="bg-white p-6 rounded-lg w-[90%] sm:w-full sm:max-w-lg lg:max-w-md">
+          <button onClick={handleCloseModal} className="mb-5">
             <Image
               src="/cancel-button.svg"
               alt="upload to cloud icon"
@@ -135,15 +139,15 @@ export default function UploadModal({ setIsModalOpen, id }: UploadModalProps) {
           <div
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            className="p-10 px-36 border-2 border-dashed w-full rounded-lg  hover:border-[#305041] hover:bg-slate-50"
+            className="p-6 sm:p-8 border-2 border-dashed w-full rounded-lg hover:border-[#305041] hover:bg-slate-50"
           >
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full flex justify-center items-center mb-4">
               <Image
                 src="/upload-to-cloud-icon.svg"
                 alt="upload to cloud icon"
-                width={100}
-                height={100}
-                className="md:w-16 "
+                width={80}
+                height={80}
+                className="w-12 sm:w-16"
               />
             </div>
 
@@ -155,42 +159,51 @@ export default function UploadModal({ setIsModalOpen, id }: UploadModalProps) {
               className="hidden"
               ref={fileInputRef}
             />
-            <p className=" text-base w-full text-nowrap ">
+
+            <p className="text-sm md:text-base text-center">
               Drag and Drop files
             </p>
-
-            <p className=" text-center font-semibold my-2">or</p>
-
-            <p className="text-center mb-2 "> select a file </p>
+            <p className="text-center font-semibold my-2 text-sm md:text-base">
+              or
+            </p>
+            <p className="text-center text-sm md:text-base mb-4">
+              Select a file
+            </p>
 
             <div className="w-full flex justify-center items-center">
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="px-10 py-1 md:px-10 md:py-1 rounded-[10px] font-medium text-[15px] md:text-[20px] text-white bg-[#305041] transition duration-300 hover:bg-[#426d57]"
+                className="px-8 py-2 rounded-lg font-medium text-sm md:text-base text-white bg-[#305041] transition duration-300 hover:bg-[#426d57]"
               >
                 Browse
               </button>
             </div>
           </div>
 
-          {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-center mt-4 text-sm md:text-base">
+              {error}
+            </p>
+          )}
+
           {files.length > 0 && (
-            <div className="mt-4">
-              <h4 className="font-semibold">Selected Files:</h4>
-              <ul className="list-disc pl-5 overflow-auto scrollbar-hide h-16">
+            <div className="mt-4 max-h-24 overflow-auto scrollbar-hide ">
+              <h4 className="font-semibold text-sm md:text-base">
+                Selected Files:
+              </h4>
+              <ul className="list-disc pl-5 text-sm  md:text-base">
                 {files.map((file, index) => (
                   <li key={index}>{file.name}</li>
                 ))}
               </ul>
             </div>
           )}
-          <div className="w-full flex mt-3 justify-end items-center">
+
+          <div className="w-full flex justify-end mt-4">
             <button
               disabled={loading}
-              onClick={() => {
-                handleUpload();
-              }}
-              className="px-6 py-2 rounded-[20px] text-[15px] text-white bg-[#305041] transition duration-300 hover:bg-[#426d57]"
+              onClick={handleUpload}
+              className="px-4 py-2 rounded-lg text-sm md:text-base text-white bg-[#305041] transition duration-300 hover:bg-[#426d57]"
             >
               {loading ? "Uploading..." : "Upload"}
             </button>

@@ -87,6 +87,7 @@ export default function GalleryNavbar({ name, image }: GalleryNavbarProps) {
             />
             <p className="hidden sm:block font-semibold truncate max-w-[100px] md:max-w-none">
               {name}
+              
             </p>
             <Image
               src="/arrowdown.svg"
@@ -104,7 +105,7 @@ export default function GalleryNavbar({ name, image }: GalleryNavbarProps) {
         {showDropdown && (
           <div className="absolute right-0 top-20 z-10 mt-2 w-40 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 md:right-10">
             <div className="py-1">
-              <Link href="/account-settings" passHref>
+              <Link href="/dashboard/account-settings" passHref>
                 <p className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                   Account settings
                 </p>

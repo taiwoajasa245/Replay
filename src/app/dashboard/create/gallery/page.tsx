@@ -3,20 +3,21 @@
 import BackButton from "@/components/Gallery/BackButton";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function CreateGallery() {
   const [title, settitle] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleCreateGallery = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
+    
+
 
     if (!title.trim()) {
-      setError("Gallery name cannot be empty");
+      toast.error("Gallery name cannot be empty")
       setLoading(false);
       return;
     }
@@ -28,6 +29,7 @@ export default function CreateGallery() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ title }),
+        cache: "no-cache",
       });
 
       if (!response.ok) {
@@ -37,13 +39,11 @@ export default function CreateGallery() {
       const result = await response.json();
 
       if (result.status) {
-        setError(result.message || "Gallery created successfully");
+        toast.success(result.message || "Gallery created successfully")
         router.replace("/dashboard");
       }
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unexpected error occurred"
-      );
+      toast.error( err instanceof Error ? err.message : "An unexpected error occurred");
     } finally {
       setLoading(false);
     }
@@ -53,9 +53,9 @@ export default function CreateGallery() {
     <div className="w-full p-2 px-4 md:p-9">
       {/* back buttton  */}
       <div className="my-4 md:my-0">
-        <BackButton />
+        <BackButton href="/dashboard"/>
       </div>
-      {/* form  */}
+      {/* create gallery form  */}
 
       <form onSubmit={handleCreateGallery} className=" md:my-10 md:ml-9">
         <div>
@@ -80,15 +80,6 @@ export default function CreateGallery() {
           This name will be visible to others when you share the gallery link
         </p>
 
-        {error && (
-          <p
-            className={`${
-              error == "Successfull" ? "text-green-500" : "text-red-500"
-            } mt-2`}
-          >
-            {error}
-          </p>
-        )}
         <div className="w-full flex justify-center md:mt-6 mt-20">
           <button
             type="submit"

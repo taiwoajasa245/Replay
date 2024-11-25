@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import type { Session } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import { boolean, string } from "zod";
 
 const API_URL = process.env.API_BASE_URL;
 
@@ -29,6 +30,34 @@ type FetchGalleryResponse = {
 type GalleriesResponse = {
   data: Gallery[];
 };
+
+type Stats = {
+  totalGalleries: number; 
+  totalFiles: number; 
+};
+
+type StatsResponse = {
+data: Stats;
+};
+
+type User = { 
+  photo: string;
+  firstName: string,
+  lastName: string;
+  email: string; 
+}
+
+type UserResponse = { 
+  data: User; 
+}
+
+
+
+type ChangePasswordResponse = {
+  status: string,
+  message: string,
+  data: string
+}
 
 // Utility function to get the session token
 async function getSessionToken(): Promise<string> {
@@ -64,6 +93,7 @@ async function fetchWithAuth<T>(
       ...options.headers,
       Authorization: `Bearer ${token}`,
     },
+    cache: "no-cache", 
   });
 
   return await handleApiResponse<T>(response);
@@ -105,6 +135,37 @@ export async function addGallery(galleryData:  string ): Promise<Gallery | null>
   }
 }
 
+
+// Edit gallery by Id
+export async function editGallery(id: string , galleryData: { title: string, linkActive: boolean }): Promise<Gallery | null> {
+  try {
+    return await fetchWithAuth<Gallery>(`gallery/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(galleryData),
+    });
+  } catch (error) {
+    handleError(error, "adding gallery");
+    return null;
+  }
+}
+
+
+// Delete Gallery by ID
+export async function deleteGallery(id: string): Promise<{ message: string } | null> {
+  try {
+    return await fetchWithAuth<{ message: string }>(`gallery/${id}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    handleError(error, "deleting gallery");
+    return null;
+  }
+}
+
+
 // Upload an image to a gallery
 export async function uploadImage(
   id: string,
@@ -132,6 +193,60 @@ export async function deleteImage(id: string): Promise<{ message: string } | nul
     return null;
   }
 }
+
+// fetch Stats 
+export async function fetchStats(): Promise<StatsResponse | null> {
+  try {
+    return await fetchWithAuth<StatsResponse>("stats");
+  } catch (error) {
+    handleError(error, "fetching Stats");
+    return null;
+  }
+}
+
+export async function fetchUserDetails(): Promise<UserResponse | null> {
+  try {
+    return await fetchWithAuth<UserResponse>("user");
+  } catch (error) {
+    handleError(error, "fetching User Details");
+    return null;
+  }
+}
+
+// edit user details 
+export async function editUserDetails(
+  userData: FormData
+): Promise<{ status: string } | null> {
+  try {
+    return await fetchWithAuth<{ status: string }>('user', {
+      method: "PATCH",
+      body: userData,
+    });
+  } catch (error) {
+    handleError(error, "uploading user data ");
+    return null;
+  }
+}
+
+// change user password 
+export async function changeUserPassword(
+  userData: { oldPassword: string, newPassword: string}
+): Promise<ChangePasswordResponse | string> {
+  try {
+    return await fetchWithAuth<ChangePasswordResponse>('user/change-password', {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+  } catch (error: unknown) {
+    handleError(error, "changing user password ");
+    return error instanceof Error ? error.message : "Old password is incorrect";
+  }
+}
+
+
 
 // Error handling utility
 function handleError(error: unknown, action: string) {
