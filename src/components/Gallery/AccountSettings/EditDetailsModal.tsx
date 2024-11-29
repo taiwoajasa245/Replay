@@ -58,9 +58,9 @@ export default function EditDetailsModal({
       await onRevalidate();
       toast.success("Details updated successfully!");
       setIsModalOpen(false);
-    } catch (err: any) {
-      // setError(err.message || "Something went wrong!");
-      toast.error(err.message || "Something went wrong!");
+    } catch (err: unknown) {
+      console.error(err || "Something went wrong!"); 
+      toast.error("Something went wrong!");
     } finally {
       setIsLoading(false);
     }

@@ -43,8 +43,9 @@ export default function ChangePasswordModal({
 
       toast.success("Password updated successfully!");
       setIsModalOpen(false);
-    } catch (err: any) {
-      toast.error(err.message || "Something went wrong!");
+    } catch (err: unknown) {
+      console.error(err || "Something went wrong!"); 
+      toast.error("Something went wrong!");
     } finally {
       setIsLoading(false);
     }

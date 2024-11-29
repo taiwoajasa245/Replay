@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import React, { useState, useRef } from "react";
 import { toast } from "react-toastify";
 
@@ -21,7 +21,7 @@ export default function UploadModal({
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   const MAX_FILE_SIZE_MB = 10;
 

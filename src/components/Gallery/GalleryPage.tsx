@@ -19,6 +19,19 @@ export default function Galleries({ galleries }: GalleriesProps) {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  // i had no choice
+  // useEffect(() => {
+  //   router.refresh();
+  // }, []);
+
+  useEffect(() => {
+    if (galleries.length > 0) {
+      router.refresh();
+    }
+  }, [router, galleries.length]);
+  
+
+
   if (status === "loading") {
     return (
       <div className="flex justify-center items-center h-screen">Loading</div>
@@ -28,12 +41,6 @@ export default function Galleries({ galleries }: GalleriesProps) {
   if (!session) {
     return <div>Access Denied</div>;
   }
-
-  // i had no choice 
-  useEffect(() => {
-    router.refresh();
-  }, []);
-  
 
   return (
     <div className="flex flex-col h-full animate-fade-down duration-75">

@@ -47,33 +47,26 @@ export default function NavBar() {
           </Link>
         </div>
 
-        {/* Centered Navigation Links */}
-        <div className="hidden md:flex flex-grow justify-center">
-          <ul className="space-x-20 flex items-center">
+       
+        <div className="hidden md:flex flex-grow justify-end">
+          <ul className="space-x-10 mr-10 flex items-center">
             <li>
               <Link
                 href="/"
+                className="text-2xl hover:text-gray-600 transition-colors"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/about"
                 className="text-2xl hover:text-gray-600 transition-colors"
               >
                 About
               </Link>
             </li>
-            <li>
-              <Link
-                href="/"
-                className="text-2xl hover:text-gray-600 transition-colors"
-              >
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/"
-                className="text-2xl hover:text-gray-600 transition-colors"
-              >
-               Socials
-              </Link>
-            </li>
+          
           </ul>
         </div>
 
@@ -81,7 +74,7 @@ export default function NavBar() {
         <div className="hidden md:flex">
           <Link
             href="/login"
-            className="px-8 py-2 rounded-[16px] text-[15px] font-semibold md:text-[19px] text-white bg-[#305041] cursor-pointer hover:border-[#305041] hover:border transition hover:bg-white hover:text-black"
+            className="px-8 py-2 rounded-[16px] text-[15px] font-semibold md:text-[19px] text-white bg-[#305041] cursor-pointer hover:border-[#305041] border border-[#305041]  hover:border transition hover:bg-white hover:text-black"
           >
             Sign In
           </Link>

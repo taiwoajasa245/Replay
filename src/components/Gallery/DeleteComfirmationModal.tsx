@@ -18,8 +18,9 @@ export default function DeleteConfirmationModal({
   value,
   fallBackUrl,
 }: DeleteConfirmationModalProps) {
-  if (!isOpen) return null;
   const router = useRouter(); 
+  
+  if (!isOpen) return null;
 
   const handleConfirmBtn = () => {
     onConfirm();

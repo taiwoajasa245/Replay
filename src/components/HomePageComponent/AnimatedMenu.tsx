@@ -48,21 +48,14 @@ const AnimatedMenu = () => {
             href="/"
             className="text-xl hover:text-gray-600 transition-colors "
           >
-            About
-          </Link>
-          <Link
-            onClick={toggleMenu}
-            href="/"
-            className="text-xl hover:text-gray-600 transition-colors"
-          >
-            Social
+            Home
           </Link>
           <Link
             onClick={toggleMenu}
             href="/about"
             className="text-xl hover:text-gray-600 transition-colors"
           >
-            Contact
+            About
           </Link>
 
           {/* // button */}

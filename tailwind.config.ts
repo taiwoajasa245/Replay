@@ -10,7 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['var(--font-poppins)', 'sans-serif'],
+        poppins: ["var(--font-poppins)", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
         TAN_NIMBUS: ["TAN-NIMBUS", "sans-serif"],
       },
       keyframes: {

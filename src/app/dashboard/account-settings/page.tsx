@@ -50,7 +50,7 @@ async function AccountDetailsFetcher() {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-red-500 text-center">
-        We couldn't retrieve your account details at the moment. Please try refreshing the page or check back later.
+        We couldn&apos;t retrieve your account details at the moment. Please try refreshing the page or check back later.
         </p>
       </div>
     );

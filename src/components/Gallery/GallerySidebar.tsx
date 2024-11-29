@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 
 export default function GallerySidebar() {
   const { showSidebar, toggleSidebar } = useSidebar();
-  let [activeTab, setActiveTab] = useState("my-galleries");
+  const [activeTab, setActiveTab] = useState("my-galleries");
   const pathname = usePathname();
 
   // Function to handle tab click
@@ -16,11 +16,13 @@ export default function GallerySidebar() {
     setActiveTab(tabName);
   };
 
-  activeTab = pathname.includes("my-stats")
-    ? "my-stats"
-    : pathname.includes("account-settings")
-    ? "settings"
-    : "my-galleries";
+  // activeTab = pathname.includes("my-stats")
+  //   ? "my-stats"
+  //   : pathname.includes("account-settings")
+  //   ? "settings"
+  //   : "my-galleries";
+
+  setActiveTab(pathname.includes("my-stats") ? "my-stats" : (pathname.includes("account-settings") ? "settings" : "my-galleries"));
 
     
   return (

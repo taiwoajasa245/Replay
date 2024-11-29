@@ -1,5 +1,6 @@
 import BFFSection from "@/components/HomePageComponent/BFFSection";
 import EasyToUse from "@/components/HomePageComponent/EasyToUse";
+import Footer from "@/components/HomePageComponent/Footer";
 import GetStartedSection from "@/components/HomePageComponent/GetStartedSection";
 import Hero from "@/components/HomePageComponent/Hero";
 import Marquee from "@/components/HomePageComponent/Marquee";
@@ -32,6 +33,9 @@ export default function Home() {
         </div>
         <div className="mb-16">
           <UseReplaySection />
+        </div>
+        <div className="mt-10">
+          <Footer /> 
         </div>
       </div>
     </>

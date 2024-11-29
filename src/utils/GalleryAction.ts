@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import type { Session } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
-import { boolean, string } from "zod";
+// import { boolean, string } from "zod";
 
 const API_URL = process.env.API_BASE_URL;
 
@@ -59,6 +59,16 @@ type ChangePasswordResponse = {
   data: string
 }
 
+type GalleryDetailsResponse = { 
+  
+    title: string,
+    linkActive: boolean,
+    galleryId: number,
+    qrCode: string
+
+}
+
+
 // Utility function to get the session token
 async function getSessionToken(): Promise<string> {
   const session = (await getServerSession(authOptions)) as Session;
@@ -115,6 +125,16 @@ export async function fetchGalleryData(id: string): Promise<FetchGalleryResponse
     return await fetchWithAuth<FetchGalleryResponse>(`gallery/${id}`);
   } catch (error) {
     handleError(error, "fetching gallery data");
+    return null;
+  }
+}
+
+// GET gallery details by ID
+export async function fetchGalleryDetails(id: string): Promise<GalleryDetailsResponse | null> {
+  try {
+    return await fetchWithAuth<GalleryDetailsResponse>(`gallery/details/${id}`);
+  } catch (error) {
+    handleError(error, "fetching gallery details data");
     return null;
   }
 }
