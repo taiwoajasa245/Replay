@@ -36,7 +36,7 @@ export default function AboutPage() {
       <div className=" flex md:flex-row flex-col justify-center items-center  gap-10 py-10  md:gap-40  w-full  md:px-40 md:py-24">
         {/* Developer Card */}
         <DeveloperCard
-          avaterImage="/kelvin.dev-icon.svg"
+          avaterImage="/kelvin.dev-image.svg"
           name="Onyenankie Kelvin"
           technology="Backend Engineer & UI/UX Designer"
           gmail="onyenankiekelvin@gmail.com"

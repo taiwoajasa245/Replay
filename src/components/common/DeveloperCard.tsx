@@ -29,12 +29,12 @@ export default function DeveloperCard({
             alt="Avatar Image"
             width={100}
             height={100}
-            className="w-60 md:w-96 rounded"
+            className="w-60 md:w-96 rounded-lg "
           />
         </div>
 
         {/* Name */}
-        <h1 className="inter-font text-lg md:text-xl font-medium mt-1">{name}</h1>
+        <h1 className="inter-font text-lg md:text-xl font-medium mt-2">{name}</h1>
 
         {/* Technology */}
         <p className="inter-font text-sm mt-1">{technology}</p>
@@ -43,7 +43,7 @@ export default function DeveloperCard({
         <p className="inter-font text-xs mt-1">{gmail}</p>
 
         {/* Socials */}
-        <div className="flex items-center gap-2 mt-1">
+        <div className="flex items-center gap-3 mt-2">
           {/* Email */}
           <a href={`mailto:${socialLinks.email}`} target="_blank" rel="noopener noreferrer">
             <Image
@@ -51,7 +51,7 @@ export default function DeveloperCard({
               alt="Mail Icon"
               width={20}
               height={20}
-              className="w-5 cursor-pointer hover:scale-110 transition-transform"
+              className="w-4 cursor-pointer hover:scale-110 transition-transform"
             />
           </a>
 
@@ -62,7 +62,7 @@ export default function DeveloperCard({
               alt="Instagram Icon"
               width={20}
               height={20}
-              className="w-5 cursor-pointer hover:scale-110 transition-transform"
+              className="w-4 cursor-pointer hover:scale-110 transition-transform"
             />
           </a>
 
@@ -73,7 +73,7 @@ export default function DeveloperCard({
               alt="Twitter Icon"
               width={20}
               height={20}
-              className="w-5 cursor-pointer hover:scale-110 transition-transform"
+              className="w-4 cursor-pointer hover:scale-110 transition-transform"
             />
           </a>
         </div>
