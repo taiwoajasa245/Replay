@@ -43,7 +43,7 @@ export default function AboutPage() {
           socialLinks={
             {
               email:"onyenankiekelvin@gmail.com",
-              instagram: "", 
+              instagram: "https://www.instagram.com/onlywithkelz", 
               twitter: "https://x.com/chisom0x", 
             }
           }
@@ -56,7 +56,7 @@ export default function AboutPage() {
           socialLinks={
             {
               email:"ajasataiwo45@gmail.com",
-              instagram: "", 
+              instagram: "https://www.instagram.com/tech_with_tee", 
               twitter: "https://x.com/Tech_With_Taiwo", 
             }
           }
