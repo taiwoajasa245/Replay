@@ -34,7 +34,7 @@ export default function DeveloperCard({
         </div>
 
         {/* Name */}
-        <h1 className="inter-font text-lg md:text-xl font-medium mt-2">{name}</h1>
+        <h1 className="inter-font text-lg md:text-xl font-normal mt-4">{name}</h1>
 
         {/* Technology */}
         <p className="inter-font text-sm mt-1">{technology}</p>
@@ -55,6 +55,17 @@ export default function DeveloperCard({
             />
           </a>
 
+          {/* Twitter */}
+          <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+            <Image
+              src="/twitter(X)-icon.svg"
+              alt="Twitter Icon"
+              width={20}
+              height={20}
+              className="w-4 cursor-pointer hover:scale-110 transition-transform"
+            />
+          </a>
+
           {/* Instagram */}
           <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
             <Image
@@ -66,16 +77,6 @@ export default function DeveloperCard({
             />
           </a>
 
-          {/* Twitter */}
-          <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-            <Image
-              src="/twitter(X)-icon.svg"
-              alt="Twitter Icon"
-              width={20}
-              height={20}
-              className="w-4 cursor-pointer hover:scale-110 transition-transform"
-            />
-          </a>
         </div>
       </div>
     </div>

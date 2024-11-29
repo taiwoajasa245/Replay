@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="flex items-center w-full h-16 bg-[#305041]">
+    <footer className="flex items-center w-full h-16  bg-[#305041] mt-auto">
       {/* Logo */}
       <div className="flex-shrink-0 ml-5  md:ml-24">
         <Link href="/">
