@@ -34,7 +34,7 @@ export default function DeveloperCard({
         </div>
 
         {/* Name */}
-        <h1 className="inter-font text-xl font-medium mt-1">{name}</h1>
+        <h1 className="inter-font text-lg md:text-xl font-medium mt-1">{name}</h1>
 
         {/* Technology */}
         <p className="inter-font text-sm mt-1">{technology}</p>

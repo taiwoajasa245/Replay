@@ -1,30 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import CreateGalleryButton from "./CreateGallaryButton";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { usePathname } from "next/navigation";
 
 export default function GallerySidebar() {
   const { showSidebar, toggleSidebar } = useSidebar();
-  const [activeTab, setActiveTab] = useState("my-galleries");
+  // const [activeTab, setActiveTab] = useState("my-galleries");
+  let deriveActiveTab;
   const pathname = usePathname();
+
+  deriveActiveTab = pathname.includes("my-stats")
+    ? "my-stats"
+    : pathname.includes("account-settings")
+    ? "settings"
+    : "my-galleries";
 
   // Function to handle tab click
   const handleTabClick = (tabName: string) => {
-    setActiveTab(tabName);
+    // setActiveTab(tabName);
+    deriveActiveTab = tabName;
   };
 
-  // activeTab = pathname.includes("my-stats")
-  //   ? "my-stats"
-  //   : pathname.includes("account-settings")
-  //   ? "settings"
-  //   : "my-galleries";
-
-  setActiveTab(pathname.includes("my-stats") ? "my-stats" : (pathname.includes("account-settings") ? "settings" : "my-galleries"));
-
-    
   return (
     <div>
       {/* Sidebar */}
@@ -45,7 +44,7 @@ export default function GallerySidebar() {
             <Link href="/dashboard">
               <div
                 className={`block p-2 rounded   cursor-pointer ${
-                  activeTab === "my-galleries"
+                  deriveActiveTab === "my-galleries"
                     ? "bg-[#C3D7CA] text-black"
                     : "hover:bg-[#C3D7CA] hover:text-black"
                 }`}
@@ -58,7 +57,7 @@ export default function GallerySidebar() {
             <Link href="/dashboard/my-stats">
               <div
                 className={`block p-2 rounded  my-2 cursor-pointer ${
-                  activeTab === "my-stats"
+                  deriveActiveTab === "my-stats"
                     ? "bg-[#C3D7CA] text-black"
                     : "hover:bg-[#C3D7CA] hover:text-black"
                 }`}
@@ -71,7 +70,7 @@ export default function GallerySidebar() {
             <Link href="/dashboard/account-settings">
               <div
                 className={`block p-2 rounded cursor-pointer ${
-                  activeTab === "settings"
+                  deriveActiveTab === "settings"
                     ? "bg-[#C3D7CA] text-black"
                     : "hover:bg-[#C3D7CA] hover:text-black"
                 }`}

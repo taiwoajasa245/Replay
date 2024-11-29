@@ -10,7 +10,7 @@ export default function AboutPage() {
 
       {/* About Replay */}
       <div className="w-full text-center mt-10">
-        <h1 className="text-sm md:text-3xl md:mx-24 tracking-wider font-medium poppins-font  ">
+        <h1 className="text-sm md:text-3xl md:mx-24 mx-16 tracking-wider font-medium poppins-font  ">
           Replay is a collaborative photo platform that simplifies the process
           of sharing and collecting memories. Create a unique gallery link,
           invite friends and family, and watch as their cherished photos

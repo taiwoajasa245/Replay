@@ -20,10 +20,6 @@ export default function Galleries({ galleries }: GalleriesProps) {
   const router = useRouter();
 
   // i had no choice
-  // useEffect(() => {
-  //   router.refresh();
-  // }, []);
-
   useEffect(() => {
     if (galleries.length > 0) {
       router.refresh();
