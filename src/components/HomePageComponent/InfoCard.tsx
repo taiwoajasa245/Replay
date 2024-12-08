@@ -13,7 +13,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ icon, title, description, title2 })
   return (
     
     <div className="w-full flex justify-center ">
-      <div className=" w-[250px] h-[200px] md:w-[400px] md:h-[250px] border-2 border-[#305041] rounded-xl tracking-wider ">
+      <div className=" w-[260px] h-[210px] md:w-[400px] md:h-[250px] border-2 border-[#305041] rounded-xl tracking-wider ">
         {/* icon  */}
         <div className="w-full  mt-6  ">
           <Image aria-hidden src={icon} alt="Icon" width={90} height={90}className="ml-36 md:w-[130px] "/>

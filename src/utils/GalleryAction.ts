@@ -65,7 +65,13 @@ type GalleryDetailsResponse = {
     linkActive: boolean,
     galleryId: number,
     qrCode: string
+}
 
+type PublicGalleryDataResponse = { 
+  title: string;
+  linkActive: boolean,
+  galleryId: string;
+  files: { link: string; fileId: number }[];
 }
 
 
@@ -109,6 +115,26 @@ async function fetchWithAuth<T>(
   return await handleApiResponse<T>(response);
 }
 
+
+// fetch utility function without authorization
+async function fetchWithOutAuth<T>(
+  endpoint: string, 
+  options: RequestInit = {}
+): Promise<T> {
+  
+  const response = await fetch(`${API_URL}/api/v1/replay/${endpoint}`, {
+    ...options,
+    headers: {
+      ...options.headers,
+    },
+    cache: "no-cache", 
+  });
+
+  return await handleApiResponse<T>(response);
+}
+  
+
+
 // Fetch galleries
 export async function fetchGalleries(): Promise<GalleriesResponse | null> {
   try {
@@ -138,6 +164,33 @@ export async function fetchGalleryDetails(id: string): Promise<GalleryDetailsRes
     return null;
   }
 }
+
+// Get public Gallery data
+export async function fetchPublicGalleryData(uid: string): Promise<PublicGalleryDataResponse | null> {
+  try {
+    return await fetchWithOutAuth<PublicGalleryDataResponse>(`public/gallery/${uid}`);
+  } catch (error) {
+    handleError(error, "fetching public gallery details data");
+    return null;
+  }
+}
+
+// POST or UPLOAD public files 
+export async function uploadPublicImage(
+  id: string,
+  imageData: FormData
+): Promise<{ status: string } | null> {
+  try {
+    return await fetchWithOutAuth<{ status: string }>(`public/upload/${id}`, {
+      method: "POST",
+      body: imageData,
+    });
+  } catch (error) {
+    handleError(error, "uploading public image");
+    return null;
+  }
+}
+
 
 // Add a new gallery
 export async function addGallery(galleryData:  string ): Promise<Gallery | null> {

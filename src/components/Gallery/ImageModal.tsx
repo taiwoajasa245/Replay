@@ -1,4 +1,4 @@
-'use client'; 
+"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -9,20 +9,21 @@ type ImageModalProps = {
   selectedImage: { link: string; fileId: number } | null;
   onClose: () => void;
   onDelete: (fileId: number) => void;
+  showIsDeleteButton: boolean;
 };
-
-
 
 export default function ImageModal({
   isOpen,
   selectedImage,
   onClose,
   onDelete,
+  showIsDeleteButton,
 }: ImageModalProps) {
-    const [downloadProgress, setDownloadProgress] = useState<number | null>(null);
+  const [downloadProgress, setDownloadProgress] = useState<number | null>(null);
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
+
   if (!isOpen || !selectedImage) return null;
-
-
 
   const downloadWithProgress = async (url: string, fileName: string) => {
     setDownloadProgress(0);
@@ -60,15 +61,14 @@ export default function ImageModal({
     }
   };
 
-
-  const handleDelete = () => { 
-    onDelete(selectedImage.fileId); 
-    onClose(); 
-  }
+  const handleDelete = () => {
+    onDelete(selectedImage.fileId);
+    onClose();
+  };
 
   return (
     <div
-      className="fixed  inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+      className="fixed  inset-0 bg-black  flex items-center justify-center z-50"
       onClick={onClose}
     >
       <div
@@ -77,21 +77,28 @@ export default function ImageModal({
       >
         {/* Top Buttons */}
         <div className="flex justify-end items-center gap-3 mb-4">
+
+          
           {/* Delete Button */}
-          <button onClick={handleDelete}>
-            <Image
-              src="/delete-image-icon.svg"
-              alt="Delete button"
-              width={20}
-              height={20}
-              className="w-4 md:w-5"
-            />
-          </button>
+          {showIsDeleteButton && (
+            <button onClick={handleDelete}>
+              <Image
+                src="/delete-image-icon.svg"
+                alt="Delete button"
+                width={20}
+                height={20}
+                className="w-4 md:w-5"
+              />
+            </button>
+          )}
 
           {/* Download Button */}
           <button
             onClick={() =>
-              downloadWithProgress(selectedImage.link, `image-${selectedImage.fileId}.png`)
+              downloadWithProgress(
+                selectedImage.link,
+                `image-${'replay'}.png`
+              )
             }
             className="flex items-center gap-2"
           >
@@ -105,8 +112,8 @@ export default function ImageModal({
           </button>
         </div>
 
-          {/* Progress Bar */}
-          {downloadProgress !== null && (
+        {/* Progress Bar */}
+        {downloadProgress !== null && (
           <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
             <div
               className="bg-blue-500 h-2.5 rounded-full"
@@ -114,6 +121,16 @@ export default function ImageModal({
             />
           </div>
         )}
+
+
+
+        {/* Loading Spinner */}
+        {isImageLoading && (
+          <div className="flex justify-center items-center h-[80vh]">
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-green-200"></div>
+          </div>
+        )}
+
 
         {/* Image */}
         <div className="flex justify-center">
@@ -123,6 +140,7 @@ export default function ImageModal({
             width={800}
             height={600}
             className="max-w-full max-h-[80vh] object-contain rounded-md"
+            onLoadingComplete={() => setIsImageLoading(false)}
           />
         </div>
       </div>

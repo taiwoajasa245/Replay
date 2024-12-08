@@ -28,7 +28,7 @@ export default function AboutPage() {
             {" "}
             DEVELOPERS{" "}
           </h1>
-          <p className="font-semibold md:text-xl text-sm tracking-[5px] text-center mt-2">
+          <p className="font-semibold md:text-xl text-sm tracking-[5px] text-center mt-2 md:mx-0 mx-5 ">
             {" "}
             Built by the most cracked minds{" "}
           </p>

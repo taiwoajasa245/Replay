@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="m-5">
         {/* Hero header */}
         <div>
-          <p className="font-TAN_NIMBUS text-[24px] text-center md:text-[45px] md:animate-fade-up ">
+          <p className="font-TAN_NIMBUS text-[23px] text-center md:text-[45px] md:animate-fade-up ">
             Capture and Share Your <br /> Special Moments, Privately
           </p>
         </div>

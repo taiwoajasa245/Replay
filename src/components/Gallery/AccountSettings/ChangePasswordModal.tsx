@@ -55,8 +55,8 @@ export default function ChangePasswordModal({
     <div>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white px-5 py-5 pb-7 md:p-8 rounded-lg w-[18rem] md:w-[27rem]">
-          {/* cancel button  */}
 
+          {/* cancel button  */}
           <div className="flex justify-end items-end">
             <button
               onClick={handleCloseModal}

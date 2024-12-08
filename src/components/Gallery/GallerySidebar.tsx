@@ -22,6 +22,7 @@ export default function GallerySidebar() {
   const handleTabClick = (tabName: string) => {
     // setActiveTab(tabName);
     deriveActiveTab = tabName;
+    // toggleSidebar(); 
   };
 
   return (

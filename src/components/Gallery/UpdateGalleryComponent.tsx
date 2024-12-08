@@ -51,7 +51,7 @@ export default function UpdateGalleryComponent({
       const blob = await response.blob();
   
       // Use `file-saver` to trigger the download
-      saveAs(blob, "gallery-qr-code.png"); 
+      saveAs(blob, "gallery-qr-code.replay.png"); 
     } catch (error) {
       console.error("Error downloading the QR code:", error);
       alert("Failed to download the QR code. Please try again.");

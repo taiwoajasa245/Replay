@@ -5,10 +5,14 @@ import Image from "next/image";
 import React, { useState, useRef } from "react";
 import { toast } from "react-toastify";
 
+
+type FileData = { link: string; fileId: number };
 interface UploadModalProps {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
+  url: string; 
+  onFilesUploaded: (uploadedFiles: FileData[]) => void; 
 }
 
 // TODO clean up code
@@ -16,6 +20,8 @@ interface UploadModalProps {
 export default function UploadModal({
   setIsModalOpen,
   id,
+  url,
+  onFilesUploaded,
 }: UploadModalProps) {
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -41,8 +47,10 @@ export default function UploadModal({
     Array.from(files).forEach((file) => {
       if (!imageMimeTypes.includes(file.type)) {
         setError(`${file.name} is not a supported image type.`);
+        setLoading(false); 
       } else if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
         setError(`${file.name} exceeds the 10MB file size limit.`);
+        setLoading(false); 
       } else {
         validFiles.push(file);
       }
@@ -52,7 +60,7 @@ export default function UploadModal({
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError(null); // Clear previous errors
+    setError(null); 
     if (e.target.files) {
       const validFiles = validateFiles(e.target.files);
       setFiles(validFiles);
@@ -93,7 +101,7 @@ export default function UploadModal({
       files.forEach((file) => formData.append("photo", file));
 
       // Make a POST request to  Next.js API route
-      const response = await fetch(`/api/file/upload/${id}`, {
+      const response = await fetch(`${url}/${id}`, {
         method: "POST",
         body: formData,
       });
@@ -107,8 +115,17 @@ export default function UploadModal({
       }
 
       const data = await response.json();
+      
+
+      const uploadedFiles = data.data.map((file: FileData) => ({
+        link: file.link,
+        fileId: file.fileId,
+      }));
+
+     
 
       handleToast(data.message || "Upload Successfull");
+      onFilesUploaded(uploadedFiles);
 
       setFiles([]);
 
@@ -126,7 +143,7 @@ export default function UploadModal({
     <div>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
         <div className="bg-white p-6 rounded-lg w-[90%] sm:w-full sm:max-w-lg lg:max-w-md">
-          <button onClick={handleCloseModal} className="mb-5">
+          <button onClick={handleCloseModal} className="mb-6 hover:bg-slate-100 p-2 rounded">
             <Image
               src="/cancel-button.svg"
               alt="upload to cloud icon"
